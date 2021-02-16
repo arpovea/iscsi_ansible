@@ -1,0 +1,12 @@
+[Unit]
+Description=Volumen iscsi
+After=network.target
+
+[Mount]
+What=/dev/sdb
+Where=/mnt
+Type=ext4
+Options=defaults
+
+[Install]
+WantedBy=multi-user.target

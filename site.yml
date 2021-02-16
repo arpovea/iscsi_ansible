@@ -1,0 +1,15 @@
+- hosts: nodo1
+  become: true
+  roles:
+    - servidor_iscsi
+  
+- hosts: nodo2
+  become: true
+  roles:
+    - cliente_iscsi_linux
+  
+- hosts: nodo3
+  vars:
+    ansible_winrm_scheme: http
+  roles:
+    - cliente_iscsi_windows

@@ -1,0 +1,61 @@
+- name: Modify install device grub
+  debconf:
+    name: grub-pc
+    question: grub-pc/install_devices
+    value: /dev/sda
+    vtype: string
+
+- name: Ensure system is updated
+  apt: update_cache=yes upgrade=yes
+
+- name: Install open-iscsi
+  apt:
+    pkg:
+      - open-iscsi
+    state: latest
+
+- name: Perform a discovery on 192.168.50.2 and show available target nodes
+  community.general.open_iscsi:
+    show_nodes: yes
+    discover: yes
+    ip: 192.168.50.2
+
+- name: Connect to the named target, after updating the local persistent database (cache)
+  community.general.open_iscsi:
+    login: yes
+    target: iqn.2020-02.es.servidoriscsi:tg2
+
+- name: Format volumen sdb iscasi
+  community.general.filesystem:
+    fstype: ext4
+    dev: /dev/sdb
+
+- name: Copy mnt.mount
+  copy: >
+    src=mnt.mount
+    dest=/etc/systemd/system/mnt.mount
+    owner=root
+    group=root
+    mode=0644
+
+- name: Copy mnt.automount
+  copy: >
+    src=mnt.automount
+    dest=/etc/systemd/system/mnt.automount
+    owner=root
+    group=root
+    mode=0644
+
+- name: Daemon-reload systemd
+  systemd:
+    daemon_reload: yes
+
+- name: Enable mount and automount
+  systemd:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+    - mnt.automount
+    - mnt.mount
+

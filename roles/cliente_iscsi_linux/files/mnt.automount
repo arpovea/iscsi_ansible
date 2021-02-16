@@ -1,0 +1,7 @@
+Description=Automontaje de Volumen de iscsi
+
+[Automount]
+Where=/mnt
+
+[Install]
+WantedBy=multi-user.target

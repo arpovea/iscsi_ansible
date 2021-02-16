@@ -1,0 +1,25 @@
+- name: Modify install device grub
+  debconf:
+    name: grub-pc
+    question: grub-pc/install_devices
+    value: /dev/sda
+    vtype: string
+
+- name: Ensure system is updated
+  apt: update_cache=yes upgrade=yes
+
+- name: Install tgt
+  apt:
+    pkg:
+      - tgt
+    state: latest
+
+- name: Copy targets.conf
+  copy: >
+    src=targets.conf
+    dest=/etc/tgt/targets.conf
+    owner=root
+    group=root
+    mode=0644
+  notify:
+  - restart tgt
