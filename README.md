@@ -16,4 +16,8 @@ Una vez se realiza `vagrant up` este creará lo siguiente:
 
 2. Una Máquina Linux (nodo2), que hára de cliente linux el cual se conectará al target 2, creará los puntos de montaje con systemd y le dara formato a uno de los dispositivos de bloques agregados con iscsi.
 
-4. Una Maquina Windows (nodo3), que hará de cliente windows el cual se conectará al target 1, y agregará esta conexión de forma permanente, por lo cual tendremos un dispositivo de bloque en esta máquina.
+3. Una Maquina Windows (nodo3), que hará de cliente windows el cual se conectará al target 1, y agregará esta conexión de forma permanente, por lo cual tendremos un dispositivo de bloque en esta máquina.
+
+Se puede comprobar en los clientes el correcto funcionamiento observando los discos con:
+  1. En linux `lsblk`
+  2. En Windows `Get-iSCSISession | Get-Disk`
