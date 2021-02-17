@@ -1,11 +1,11 @@
-- name: Run command PowerShell
+- name: Run command PowerShell Habilitar msiscsi para arrancar en el inicio
   win_command: powershell.exe Set-Service -Name msiscsi -StartupType Automatic
 
-- name: Run command PowerShell
+- name: Run command PowerShell Iniciamos el servicio
   win_command: powershell.exe Start-Service msiscsi
 
-- name: Run command PowerShell
+- name: Run command PowerShell Escaneamos en busca de target
   win_command: powershell.exe New-IscsiTargetPortal -TargetPortalAddress 192.168.50.2
   
-- name: Run command PowerShell
+- name: Run command PowerShell Conectamos al target de manera persistente
   win_command: powershell.exe Connect-IscsiTarget -IsPersistent $True -NodeAddress iqn.2020-02.es.servidoriscsi:tg1
