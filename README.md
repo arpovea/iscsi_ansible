@@ -1,4 +1,7 @@
+
 # Tarea de autoconfiguración de servidor iscsi y dos clientes.
+
+Versión de Virtualbox 6.0
 
 Aparte de instalar el requerements.txt en nuestro entorno virtual, vagrant necesita unas gemas para winrm:
 
